@@ -3,10 +3,8 @@ import sympy
 class Limitation:
     def __init__(self, *, function: str, variables: sympy.symbols):
         """
-        :param variables: Кортеж, содержащий все переменные выражения
-        :param coefficients: Коэффициенты переменных выражения
-        :param comparison_sign: Знак сравнения
-        :param free_member: Свободный член сравнения
+        :param function: Функция
+        :param variables: Переменные функции
         """
 
         self.function = function
@@ -31,5 +29,15 @@ class Limitation:
         else:
             self._variables = variables
 
+    def limitation_to_function(self):
+        if isinstance(self.function, sympy.Rel):
+            return self.function.lhs - self.function.rhs
+        return self.function
+
+    def __add__(self, other):
+        return self.function + other.function
+
     def __str__(self):
         return f"{self.function}"
+
+limit = Limitation(function='x1 + x2 < 2', variables=sympy.symbols('x1 x2'))
