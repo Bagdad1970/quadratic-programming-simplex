@@ -1,9 +1,7 @@
-import sympy
-
 from src.limitation import Limitation
 
 
-class GroupLimitations:
+class GroupLimitation:
     def __init__(self, limitations: list[Limitation]=None):
         self.limitations = limitations
 
@@ -13,14 +11,14 @@ class GroupLimitations:
 
     @limitations.setter
     def limitations(self, limitations: list[Limitation]=None):
-        if limitations is None:
-            self._limitations = []
-        else:
-            self._limitations = limitations
+        self._limitations = limitations if limitations is not None else []
 
-    def add_limitaion(self, limitation: Limitation):
+    def __iter__(self):
+        return iter(self.limitations)
+
+    def add_limitation(self, limitation: Limitation):
         self._limitations.append(limitation)
 
     def __str__(self):
         limitations = [ limitation.__str__() for limitation in self._limitations ]
-        return f"=====Система ограничений=====\n{'\n'.join(limitations)}\n============================="
+        return f"Ограничения\n{'\n'.join(limitations)}"
