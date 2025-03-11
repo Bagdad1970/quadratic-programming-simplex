@@ -1,0 +1,30 @@
+import sympy
+
+
+class SystemEquations:
+    def __init__(self, equations: list[sympy.Equality]=None):
+        self.equations = equations
+
+    @property
+    def equations(self):
+        return self._equations
+
+    @equations.setter
+    def equations(self, equations: list):
+        if equations is None:
+            self._equations = []
+        else:
+            self._equations = equations
+
+    def create_system_with_artificial_vars(self):
+        new_system_equations = SystemEquations()
+        for artificial_var_num, equation in enumerate(self.equations, start=1):
+            equation_with_artificial_var = sympy.Eq(lhs=sympy.sympify(f"{str(equation.lhs)} + z{artificial_var_num}"), rhs=equation.rhs)
+            new_system_equations.add_equation(equation_with_artificial_var)
+        return new_system_equations
+
+    def add_equation(self, equation):
+        self.equations.append(equation)
+
+    def __iter__(self):
+        return iter(self.equations)
