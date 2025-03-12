@@ -1,14 +1,13 @@
 import sympy
 
+
 class Limitation:
-    def __init__(self, *, function: str, variables: sympy.symbols):
+    def __init__(self, function: str):
         """
         :param function: Функция
-        :param variables: Переменные функции
         """
 
         self.function = function
-        self.variables = variables
 
     @property
     def function(self):
@@ -16,18 +15,14 @@ class Limitation:
 
     @function.setter
     def function(self, function: str):
-        self._function = sympy.sympify(function)
-
-    @property
-    def variables(self):
-        return self._variables
-
-    @variables.setter
-    def variables(self, variables: sympy.symbols):
-        if isinstance(variables, sympy.core.symbol.Symbol):
-            self._variables = (variables,)
+        if '=' in function and '<=' not in function and '>=' not in function:
+            left, right = map(str.strip, function.split(sep='='))
+            self._function = sympy.Eq(sympy.sympify(left), int(right))
         else:
-            self._variables = variables
+            self._function = sympy.sympify(function)
+
+    def limitation_type(self):
+        return type(self.function)
 
     def limitation_to_function(self):
         if isinstance(self.function, sympy.Rel):
@@ -39,5 +34,3 @@ class Limitation:
 
     def __str__(self):
         return f"{self.function}"
-
-limit = Limitation(function='x1 + x2 < 2', variables=sympy.symbols('x1 x2'))
