@@ -1,5 +1,3 @@
-import sympy
-
 from src.limitation import Limitation
 
 
@@ -21,9 +19,10 @@ class GroupLimitation:
     def add_limitation(self, limitation: Limitation):
         self._limitations.append(limitation)
 
+    def __add__(self, other):
+        return GroupLimitation(self.limitations + other.limitations)
+
     def __str__(self):
         limitations = [ limitation.__str__() for limitation in self._limitations ]
         return f"Ограничения\n{'\n'.join(limitations)}"
 
-    def __add__(self, other):
-        return GroupLimitation(self.limitations + other.limitations)

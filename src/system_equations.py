@@ -1,5 +1,7 @@
 import sympy
 
+from src.fitness_function import FitnessFunction
+
 
 class SystemEquations:
     def __init__(self, equations: list[sympy.Equality]=None):
@@ -22,6 +24,15 @@ class SystemEquations:
             equation_with_artificial_var = sympy.Eq(lhs=sympy.sympify(f"{str(equation.lhs)} + z{artificial_var_num}"), rhs=equation.rhs)
             new_system_equations.add_equation(equation_with_artificial_var)
         return new_system_equations
+
+    def new_fitness_function(self):
+        equations_solved_about_z = SystemEquations()
+        for artificial_var_num, equation in enumerate(self.equations, start=1):
+            artificial_var = sympy.Symbol(f'z{artificial_var_num}')
+            equations_solved_about_z.add_equation( sympy.Eq(lhs=-1*(equation.lhs - artificial_var), rhs=artificial_var) )
+
+        sum_lhs = sum(equation.lhs for equation in equations_solved_about_z)
+        return FitnessFunction(f"{sum_lhs}")
 
     def add_equation(self, equation):
         self.equations.append(equation)
