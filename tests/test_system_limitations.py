@@ -5,7 +5,7 @@ from src.fitness_function import FitnessFunction
 from src.group_limitation import GroupLimitation
 from src.system_limitations import SystemLimitations
 from src.lagrange_function import LagrangeFunction
-from src.limitation import Limitation
+from src.limitations.limitation import Limitation
 
 
 def test_get_lagrange_partial_derivatives_without_limitations():
@@ -62,8 +62,8 @@ def test_creating_v_vars(lagrange_function, expected):
 
 def test_creating_w_vars():
     lagrange_function = LagrangeFunction(fitness_function=FitnessFunction('x1 * x2 + 2 * x2'),
-                                         group_limitation=GroupLimitation([Limitation(function='x1 - x2 > 1'),
-                                                                           Limitation(function='x1 + 2*x2 < 2')
+                                         group_limitation=GroupLimitation([Limitation('x1 - x2 > 1'),
+                                                                           Limitation('x1 + 2*x2 < 2')
                                                                            ]))
     system_limitations = SystemLimitations(lagrange_function)
 

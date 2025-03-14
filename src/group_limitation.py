@@ -1,8 +1,8 @@
-from src.limitation import Limitation
+from src.limitations.limitation import Limitation
 
 
 class GroupLimitation:
-    def __init__(self, limitations: list[Limitation]=None):
+    def __init__(self, limitations: list=None):
         self.limitations = limitations
 
     @property
@@ -10,13 +10,13 @@ class GroupLimitation:
         return self._limitations
 
     @limitations.setter
-    def limitations(self, limitations: list[Limitation]=None):
+    def limitations(self, limitations: list=None):
         self._limitations = limitations if limitations is not None else []
 
     def __iter__(self):
         return iter(self.limitations)
 
-    def add_limitation(self, limitation: Limitation):
+    def add_limitation(self, limitation):
         self._limitations.append(limitation)
 
     def __add__(self, other):
@@ -24,5 +24,5 @@ class GroupLimitation:
 
     def __str__(self):
         limitations = [ limitation.__str__() for limitation in self._limitations ]
-        return f"Ограничения\n{'\n'.join(limitations)}"
+        return f"====Ограничения====\n{'\n'.join(limitations)}\n==================="
 

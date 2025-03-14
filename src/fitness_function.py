@@ -6,7 +6,6 @@ class FitnessFunction:
         """
         :param function: Целевая функция
         """
-
         self.function = function
 
     @property

@@ -4,7 +4,7 @@ import sympy
 from src.fitness_function import FitnessFunction
 from src.group_limitation import GroupLimitation
 from src.lagrange_function import LagrangeFunction
-from src.limitation import Limitation
+from src.limitations.limitation import Limitation
 
 
 @pytest.mark.parametrize('fitness_function, expected', [

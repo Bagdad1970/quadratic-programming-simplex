@@ -13,8 +13,7 @@ class LagrangeFunction:
     def __create_lagrange_multipliers(self):
         if not self.group_limitation:
             return []
-        else:
-            return [ sympy.symbols(f"λ{i + 1}") for i in range(len(self.group_limitation.limitations)) ]
+        return [ sympy.symbols(f"λ{i + 1}") for i in range(len(self.group_limitation.limitations)) ]
 
     def __get_lagrange_terms_sum(self) -> list:
         if not self.lagrange_multipliers:

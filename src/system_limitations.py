@@ -69,5 +69,8 @@ class SystemLimitations:
         return (self.variable_partial_derivative.all_limitations_for_variables() +
                 self.lambda_partial_derivative.all_limitations_for_lambdas())
 
-    def get_system_equations(self):
+    def get_new_system_equations(self):
         return self.variable_partial_derivative.equations_with_variable_diffs()
+
+    def get_new_system_limitation(self):
+        return self.lambda_partial_derivative.equations_with_lambda_diffs()
